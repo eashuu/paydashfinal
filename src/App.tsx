@@ -212,6 +212,7 @@ function App() {
       event.events.toLowerCase().includes(searchEventTerm.toLowerCase())
     );
 
+    const isSignaturePass = participant.Pass === 'Signature';
     console.log('Rendering dropdown for participant:', participant.id, 'with pass:', participant.Pass);
     console.log('Current value:', currentValue);
 
@@ -222,7 +223,7 @@ function App() {
           className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium ${
             currentValue ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
           }`}
-          disabled={participant.Pass !== 'General'}
+          disabled={participant.Pass !== 'General' && !isSignaturePass}
         >
           {currentValue || 'Not Set'}
           <ChevronDown className="ml-2 h-4 w-4" />
