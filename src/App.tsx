@@ -82,18 +82,19 @@ function App() {
   const updatePaymentStatus = async (id: number, status: string) => {
     try {
       setUpdating(id);
+      const IDNum = `NGPK${String(id).padStart(5, '0')}`;
       const { error } = await supabase
         .from('Participants')
-        .update({ Payment: status })
+        .update({ Payment: status, ID_no: IDNum })
         .eq('id', id);
 
       if (error) throw error;
 
-      toast.success('Payment status updated successfully');
+      toast.success('Payment status and ID number updated successfully');
       fetchParticipants();
     } catch (error) {
-      console.error('Error updating payment status:', error);
-      toast.error('Failed to update payment status');
+      console.error('Error updating payment status and ID number:', error);
+      toast.error('Failed to update payment status and ID number');
     } finally {
       setUpdating(null);
       setOpenDropdown(null);
